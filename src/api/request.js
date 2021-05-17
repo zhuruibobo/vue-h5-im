@@ -3,8 +3,8 @@ import axios from 'axios'
 import router from '@/router/index.js'
 import { Dialog } from 'vant';
 
-const baseURL = 'http://192.168.31.128/open'
-// const baseURL = 'http://bz.baizitech.cn/open'
+// const baseURL = 'http://192.168.31.128/open'
+const baseURL = 'http://bz.baizitech.cn/open'
 
 const service = axios.create({
   baseURL,
