@@ -22,9 +22,16 @@ const getMsgMedia = params => request({
   method: 'GET'
 })
 
+const sendImg = (params, data) => request({
+  url: '/app/image/send',
+  params,
+  data
+})
+
 export default {
   getSessionlist,
   getMsgRecord,
   sendText,
-  getMsgMedia
+  getMsgMedia,
+  sendImg
 }
