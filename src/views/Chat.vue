@@ -14,22 +14,27 @@
             <div class="img"><img class="headImg" :src="item.fromId == prevForm.openId ? headImg : item.headImg"></div>
             <div class="content" v-if="item.msgtype != 'text'">
               <!-- <span v-if="item.msgtype == 'text'">{{item.content}}</span> -->
-              <img class="content-img" v-if="item.msgtype == 'image'" referrerPolicy="no-referrer" :src="item.url">
-              <span v-if="item.msgtype == 'voice'" @click="playAmr(item)">语音:{{item.voiceTime}}″</span>
+              <img class="content-img" v-if="item.msgtype == 'image'" referrerPolicy="no-referrer" :src="item.url" @click="viewImg(item.url)">
+              <span class="voice" v-if="item.msgtype == 'voice'" @click="playAmr(item)">
+                <svg t="1621498480105" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8192" width="18" height="18"><path d="M529.1 901.6c-2.7 0-12.1-4.1-17-9l-0.3-0.3-230.4-190.1H96.1c-8.9 0-18.3-4.6-22.7-9-4.4-4.4-9-13.8-9-22.7v-319c0-7 2.7-12.9 4.4-14.6H71l2.4-2.4c4.4-4.4 13.8-9 22.7-9h185.3l230.4-195.8 0.2-0.2c5.8-5.8 12.9-7 17.8-7 4.4 0 8.9 1 12.6 2.9l0.5 0.3 0.5 0.2c12.5 4.2 17.2 11.3 17.2 26.4v717.8c0 15.1-4.7 22.3-17.2 26.4l-1.8 0.6-1.4 1.4c-3 3-5.6 3.1-11.1 3.1z m279.1-79.7c-9.9 0-23.1-5.1-26.9-12.6-9-18-5.8-36.4 7.9-46.1 4.8-2 11.6-7.2 20.3-15.6 8.9-8.7 22.4-23.7 36.2-45.7 23-36.8 50.4-99.7 50.4-190.9s-29-154.2-53.3-191.1c-14.5-22-28.8-37-38.2-45.6-6.6-6.1-14.9-13-21-15.5-12.6-9.1-17-31.4-8.9-44.5 9.4-9.1 20.6-14.3 30.8-14.3 5.4 0 10.4 1.4 14.8 4.2 0.7 0.6 1.6 1.3 3 2.4 29.4 23.1 54.9 51.4 75.8 84.1 40.1 62.9 60.5 137 60.5 220.3 0 83.7-19.7 158.1-58.4 221.1-20.1 32.7-44.5 60.9-72.6 83.6-1.7 1.4-2.6 2.1-3.3 2.8-3.4 3.4-13.3 3.4-17.1 3.4zM688.6 696.6c-8.3 0-22.6-9.7-26.9-18.3l-0.2-0.5-0.3-0.4c-8.2-12.4 0.8-30.4 14.5-39.7 6.4-3.4 60.9-35.5 60.9-132.3 0-46.5-18-78.4-33.2-97-16.5-20.2-33.1-29.4-33.7-29.8l-0.6-0.3-0.7-0.2c-5.8-1.9-11.4-8.5-14.3-16.8-2.9-8.3-2.3-16.6 1.4-22.2l0.6-0.9 0.3-1c2.9-8.6 15.6-16.1 27.3-16.1 4.5 0 8.6 1.1 11.7 3.2l2.1 1.4h1.5c4.5 1.7 29.1 14 53.5 41.9 21.7 24.9 47.6 68.1 47.6 132.2 0 72.9-24.5 120.2-45 147.1-22.6 29.5-45.6 42.2-50.4 44.1h-2.4l-2.4 2.4c-3.2 3-5.7 3.2-11.3 3.2z" fill="" p-id="8193"></path></svg>
+                {{item.voiceTime}}″
+              </span>
               <span v-if="item.msgtype != 'text' && item.msgtype != 'image' && item.msgtype != 'voice'">【收到不支持的消息类型，暂无法显示】</span>
             </div>
             <div class="content" v-else v-html="item.html"></div>
           </div>
-          <!-- <div class="time" :key="idx">
-            {{new Date().toLocaleTimeString()}}
-          </div> -->
         </template>
       </div>
     </van-pull-refresh>
     <div class="input-area">
       <div class="line">
-        <svg t="1621238786333" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18580" width="30" height="30"><path d="M431.207929 106.919125c-14.536065-5.991458-30.570249-2.454912-41.684378 8.683776L198.703551 308.032562l-94.77862 0c-21.468964 0-38.633902 17.024745-38.633902 38.486546l0 331.002716c0 21.460778 17.164938 38.485523 38.633902 38.485523l94.77862 0 191.521988 192.429661c7.446599 7.467065 17.411555 11.530614 27.557636 11.530614 4.992711 0 8.626471-0.915859 13.424754-2.89391 14.545274-6.005784 22.63144-20.143783 22.63144-35.874045L453.839369 142.839219C453.838346 127.108956 445.753203 112.924909 431.207929 106.919125zM376.128473 787.108708 241.016239 649.917116c-7.299243-7.320733-15.827477-11.618619-26.163893-11.618619l-71.852468 0L142.999878 385.742435l71.852468 0c10.336416 0 18.86465-4.297886 26.163893-11.618619l135.112234-137.191592L376.128473 787.108708zM581.9 676.526147c-7.67889 8.590656-18.318204 12.96529-29.000498 12.96529-9.221012 0-18.47477-3.25923-25.891693-9.886161-16.011672-14.302751-17.388019-38.870286-3.080152-54.870702 97.04729-108.533902 10.117428-213.893508-0.113587-225.548966-14.113439-16.081257-12.632715-40.605813 3.388167-54.78986 16.020882-14.189164 40.431851-12.817933 54.697763 3.1262C632.777761 404.416749 698.252984 546.403554 581.9 676.526147zM699.338712 780.485871c-7.677866 8.591679-18.318204 12.96529-29.000498 12.96529-9.219989 0-18.478863-3.25923-25.891693-9.885138-16.010649-14.302751-17.388019-38.871309-3.079128-54.871725 191.540408-214.210733 7.91118-424.49811 0-433.345616-14.307867-16.000416-12.93152-40.568974 3.079128-54.871725 15.997346-14.302751 40.575114-12.927427 54.892191 3.079128C701.739389 246.240217 936.651606 515.090385 699.338712 780.485871zM821.955354 858.351286c-7.67889 8.590656-18.318204 12.96529-29.000498 12.96529-9.221012 0-18.47477-3.25923-25.891693-9.886161-16.011672-14.302751-17.388019-38.870286-3.080152-54.870702 109.224634-122.153084 142.595672-257.939677 99.177813-403.597081-32.952506-110.559025-98.518804-184.728258-99.177813-185.468109-14.307867-16.000416-12.93152-40.564881 3.080152-54.871725 15.992229-14.306844 40.568974-12.930497 54.892191 3.079128C825.049832 169.162748 1128.098893 515.981684 821.955354 858.351286z" p-id="18581"></path></svg>
+        <svg @click="showInput" v-show="!recordIcon" t="1621238312635" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3442" width="30" height="30"><path d="M512 65c246.319 0 446 199.681 446 446S758.319 957 512 957 66 757.319 66 511 265.681 65 512 65z m0 59.773c-213.307 0-386.227 172.92-386.227 386.227S298.693 897.227 512 897.227 898.227 724.307 898.227 511 725.307 124.773 512 124.773z m140.227 549.454c12.702 0 23 10.297 23 23v34.464c0 12.702-10.298 23-23 23H374.072c-12.702 0-23-10.298-23-23v-34.464c0-12.703 10.298-23 23-23h278.155zM466.01 500.655c12.703 0 23 10.297 23 23v64.35c0 12.703-10.297 23-23 23h-66.65c-12.702 0-23-10.297-23-23v-64.35c0-12.703 10.298-23 23-23h66.65z m160.928 0c12.703 0 23 10.297 23 23v64.35c0 12.703-10.297 23-23 23h-66.65c-12.702 0-23-10.297-23-23v-64.35c0-12.703 10.298-23 23-23h66.65z m-324.154-1.15c12.702 0 23 10.298 23 23v64.35c0 12.703-10.298 23-23 23h-66.65c-12.703 0-23-10.297-23-23v-64.35c0-12.702 10.297-23 23-23h66.65z m487.38 0c12.703 0 23 10.298 23 23v64.35c0 12.703-10.297 23-23 23h-66.649c-12.702 0-23-10.297-23-23v-64.35c0-12.702 10.298-23 23-23h66.65zM466.01 339.727c12.703 0 23 10.297 23 23v64.35c0 12.703-10.297 23-23 23h-66.65c-12.702 0-23-10.297-23-23v-64.35c0-12.703 10.298-23 23-23h66.65z m160.928 0c12.703 0 23 10.297 23 23v64.35c0 12.703-10.297 23-23 23h-66.65c-12.702 0-23-10.297-23-23v-64.35c0-12.703 10.298-23 23-23h66.65z m-324.154-1.15c12.702 0 23 10.298 23 23v64.35c0 12.703-10.298 23-23 23h-66.65c-12.703 0-23-10.297-23-23v-64.35c0-12.702 10.297-23 23-23h66.65z m487.38 0c12.703 0 23 10.298 23 23v64.35c0 12.703-10.297 23-23 23h-66.649c-12.702 0-23-10.297-23-23v-64.35c0-12.702 10.298-23 23-23h66.65z" fill="#333333" p-id="3443"></path></svg>
+        <div class="record-btn" v-show="!recordIcon">
+          按住说话
+        </div>
+        <svg @click="showRecordButton" v-show="recordIcon" t="1621238786333" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18580" width="30" height="30"><path d="M431.207929 106.919125c-14.536065-5.991458-30.570249-2.454912-41.684378 8.683776L198.703551 308.032562l-94.77862 0c-21.468964 0-38.633902 17.024745-38.633902 38.486546l0 331.002716c0 21.460778 17.164938 38.485523 38.633902 38.485523l94.77862 0 191.521988 192.429661c7.446599 7.467065 17.411555 11.530614 27.557636 11.530614 4.992711 0 8.626471-0.915859 13.424754-2.89391 14.545274-6.005784 22.63144-20.143783 22.63144-35.874045L453.839369 142.839219C453.838346 127.108956 445.753203 112.924909 431.207929 106.919125zM376.128473 787.108708 241.016239 649.917116c-7.299243-7.320733-15.827477-11.618619-26.163893-11.618619l-71.852468 0L142.999878 385.742435l71.852468 0c10.336416 0 18.86465-4.297886 26.163893-11.618619l135.112234-137.191592L376.128473 787.108708zM581.9 676.526147c-7.67889 8.590656-18.318204 12.96529-29.000498 12.96529-9.221012 0-18.47477-3.25923-25.891693-9.886161-16.011672-14.302751-17.388019-38.870286-3.080152-54.870702 97.04729-108.533902 10.117428-213.893508-0.113587-225.548966-14.113439-16.081257-12.632715-40.605813 3.388167-54.78986 16.020882-14.189164 40.431851-12.817933 54.697763 3.1262C632.777761 404.416749 698.252984 546.403554 581.9 676.526147zM699.338712 780.485871c-7.677866 8.591679-18.318204 12.96529-29.000498 12.96529-9.219989 0-18.478863-3.25923-25.891693-9.885138-16.010649-14.302751-17.388019-38.871309-3.079128-54.871725 191.540408-214.210733 7.91118-424.49811 0-433.345616-14.307867-16.000416-12.93152-40.568974 3.079128-54.871725 15.997346-14.302751 40.575114-12.927427 54.892191 3.079128C701.739389 246.240217 936.651606 515.090385 699.338712 780.485871zM821.955354 858.351286c-7.67889 8.590656-18.318204 12.96529-29.000498 12.96529-9.221012 0-18.47477-3.25923-25.891693-9.886161-16.011672-14.302751-17.388019-38.870286-3.080152-54.870702 109.224634-122.153084 142.595672-257.939677 99.177813-403.597081-32.952506-110.559025-98.518804-184.728258-99.177813-185.468109-14.307867-16.000416-12.93152-40.564881 3.080152-54.871725 15.992229-14.306844 40.568974-12.930497 54.892191 3.079128C825.049832 169.162748 1128.098893 515.981684 821.955354 858.351286z" p-id="18581"></path></svg>
         <van-field
+          v-show="recordIcon"
           class="input-text"
           border
           v-model="message"
@@ -64,6 +69,11 @@
     <div class="loading" :style="{left: sendMessage ? 0 : '100vw'}">
       <van-loading size="24px" vertical color="#fff">发送图片中...</van-loading>
     </div>
+    <div class="record-vocie" v-show="isRecording">
+      <div>上滑取消录音</div>
+    </div>
+    <van-image-preview v-model="viewImage" :images="imgList">
+    </van-image-preview>
   </div>
 </template>
 <script>
@@ -76,51 +86,51 @@ export default {
     return {
       qqFaceMap: {
         "/::)": '0',
-        "/::~": '1',
-        "/::B": '2',
-        "/::|": '3',
-        "/:8-)": '4',
-        "/::<": '5',
-        "/::$": '6',
-        "/::X": '7',
-        "/::Z": '8',
-        "/::'(": '9',
-        "/::-|": '10',
-        "/::@": '11',
-        "/::P": '12',
-        "/::D": '13',
-        "/::O": '14',
-        "/::(": '15',
-        "/:--b": '16',
-        "/::Q": '17',
-        "/::T": '18',
-        "/:,@P": '19',
-        "/:,@-D": '20',
-        "/::d": '21',
-        "/:,@o": '22',
-        "/:|-)": '23',
-        "/::!": '24',
-        "/::>": '25',
-        "/::,@": '26',
-        "/::-S": '27',
-        "/:?": '28',
-        "/:,@x": '29',
-        "/:,@@": '30',
-        "/:,@!": '31',
-        "/:!!!": '32',
-        "/:xx": '33',
-        "/:bye": '34',
-        "/:wipe": '35',
-        "/:dig": '36',
-        "/:handclap": '37',
-        "/:B-)": '38',
-        "/:@>": '39',
-        "/:>-|": '40',
-        "/:P-(": '41',
-        "/::'|": '42',
-        "/:X-)": '43',
-        "/::*": '44',
-        "/:8*": '45',
+        "/::~": 1,
+        "/::B": 2,
+        "/::|": 3,
+        "/:8-)": 4,
+        "/::<": 5,
+        "/::$": 6,
+        "/::X": 7,
+        "/::Z": 8,
+        "/::'(": 9,
+        "/::-|": 10,
+        "/::@": 11,
+        "/::P": 12,
+        "/::D": 13,
+        "/::O": 14,
+        "/::(": 15,
+        "/:--b": 16,
+        "/::Q": 17,
+        "/::T": 18,
+        "/:,@P": 19,
+        "/:,@-D": 20,
+        "/::d": 21,
+        "/:,@o": 22,
+        "/:|-)": 23,
+        "/::!": 24,
+        "/::>": 25,
+        "/::,@": 26,
+        "/::-S": 27,
+        "/:?": 28,
+        "/:,@x": 29,
+        "/:,@@": 30,
+        "/:,@!": 31,
+        "/:!!!": 32,
+        "/:xx": 33,
+        "/:bye": 34,
+        "/:wipe": 35,
+        "/:dig": 36,
+        "/:handclap": 37,
+        "/:B-)": 38,
+        "/:@>": 39,
+        "/:>-|": 40,
+        "/:P-(": 41,
+        "/::'|": 42,
+        "/:X-)": 43,
+        "/::*": 44,
+        "/:8*": 45,
         "[Happy]": 46,
         "[Sick]": 47,
         "[Flushed]": 48,
@@ -296,6 +306,9 @@ export default {
         107: "/:shake",
         108: "/:circle"
       },
+      isRecording: false,
+      recordIcon: true,
+      viewImage: false,
       testList: new Array(109),
       sendMessage: false,
       tool: false,
@@ -321,16 +334,20 @@ export default {
         start: Number(this.$route.query.start) + 1,
         end: new Date().getTime()
       },
+      selectionStart: 0,
       userName: this.$route.query.userName,
       sessionCreateTime: Number(this.$route.query.createTime),
       headImg: this.$route.query.headImg,
       clientImg: '',
       list: [],
-      amr: null,
+      amr: new BenzAMRRecorder(),
+      amrRecord: new BenzAMRRecorder(),
       interVal: null,
       successText: '加载成功',
       paddingBottom: 70,
-      selectionStart: 0
+      selectionStart: 0,
+      imgList: [],
+      clientY: 0
     }
   },
   computed: {
@@ -343,6 +360,84 @@ export default {
     }
   },
   methods: {
+    mouseDown (e) {
+      this.isRecording = true
+      this.amrRecord = new BenzAMRRecorder()
+      this.amrRecord.initWithRecord().then(() => {
+        this.amrRecord.startRecord()
+        this.clientY = e.touches[0].clientY
+        addEventListener('touchmove', this.mouseMove)
+      })
+    },
+    mouseEnd () {
+      this.amrRecord.finishRecord().then(() => {
+        removeEventListener('touchmove', this.mouseMove)
+        this.isRecording = false
+        this.amr.stop()
+        this.amr = new BenzAMRRecorder()
+        let file = this.amrRecord.getBlob()
+        let voiceTime = Math.ceil(this.amrRecord.getDuration())
+        this.sendVoice(file, voiceTime)
+        this.amr.initWithBlob(file).then(() => {
+          this.amr.play()
+        })
+      })
+    },
+    mouseMove (e) {
+      if ((this.clientY - e.targetTouches[0].clientY) > 100 ) {
+        this.amrRecord.cancelRecord()
+        this.isRecording = false
+        removeEventListener('touchmove', this.mouseMove)
+      }
+    },
+    sendVoice(file, voiceTime) {
+      clearInterval(this.interVal)
+      const time = new Date().getTime()
+      this.nextForm.start = time + 1
+      let formData = new FormData()
+      formData.append('voice', file)
+      console.log(file)
+      testApi.snedVoice({
+        time,
+        appId: this.prevForm.appId,
+        openId: this.prevForm.openId,
+        voiceTime
+      },formData).then(() => {
+        let msg = {
+          msgtype: 'voice',
+          content: '',
+          createTime: time,
+          headImg: this.clientImg,
+          url: window.URL.createObjectURL(file),
+          voiceTime
+        }
+        this.list.push(msg)
+        // this.addIcon = false
+        // this.resetBool()
+      }).finally(() => {
+        // this.sendMessage = false
+        this.interVal = setInterval(this.getNext, 2000)
+        this.scrollToBottom()
+      })
+    },
+    showInput () {
+      this.recordIcon = true
+      this.show = false
+      setTimeout(() => {
+        document.querySelector('.van-field__control').focus()
+      }, 200)
+    },
+    showRecordButton () {
+      this.recordIcon = false
+      this.show = false
+      let recordBtn = document.querySelector('.record-btn')
+      recordBtn.addEventListener('touchstart', this.mouseDown)
+      recordBtn.addEventListener('touchend', this.mouseEnd)
+    },
+    viewImg (url) {
+      this.imgList = [url]
+      this.viewImage = true
+    },
     afterRead (file) {
       console.log(file)
       clearInterval(this.interVal)
@@ -412,6 +507,7 @@ export default {
       this.selectionStart = document.querySelector('.van-field__control').selectionStart
     },
     textClick (e) {
+      console.log('click')
       if (!this.cancelKeyBoard) {
         this.show = false,
         this.emojiIcon = true
@@ -428,6 +524,7 @@ export default {
       }
     },
     textFocus (e) {
+      console.log('focus')
       if (!this.cancelKeyBoard) {
         this.show = false,
         this.emojiIcon = true
@@ -461,12 +558,12 @@ export default {
       document.querySelector('.van-field__control').focus()
     },
     playAmr (row) {
-      console.log(amr.isPlaying())
-      amr.stop()
+      console.log(this.amr.isPlaying())
+      this.amr.stop()
       // console.log(amr.isPlaying())
-      amr = new BenzAMRRecorder()
-      amr.initWithUrl(row.url).then(function() {
-        amr.play()
+      this.amr = new BenzAMRRecorder()
+      this.amr.initWithUrl(row.url).then(() => {
+        this.amr.play()
       })
     },
     send () {
@@ -534,7 +631,7 @@ export default {
                 })
               }
             } else {
-              res[i].html = this.genString2emoji(res[i].content)
+              // res[i].html = this.genString2emoji(res[i].content)
             }
           }
           switch (type) {
@@ -616,7 +713,8 @@ export default {
     .van-pull-refresh {
       width: 100%;
       height: 100%;
-      overflow-y: scroll ;
+      overflow-y: scroll;
+      user-select: text;
     }
     .van-pull-refresh::-webkit-scrollbar {
       display: none;
@@ -632,6 +730,7 @@ export default {
       left: 0;
       z-index: 99;
       color: #fff;
+      user-select: none;
     }
     .chat-record {
       padding: 0 15px;
@@ -649,6 +748,13 @@ export default {
         position: relative;
         display: flex;
         padding: 0 0 10px 0;
+        .voice {
+          display: flex;
+          align-items: center;
+          svg {
+            margin-right: 5px;
+          }
+        }
         .img {
           width: 50px;
           height: 50px;
@@ -676,6 +782,7 @@ export default {
           .content-img {
             width: 100%;
             height: auto;
+            border-radius: 10px;
           }
         }
       }
@@ -689,6 +796,14 @@ export default {
         .content {
           margin-right: 5px;
           background-color: rgb(159, 220, 115);
+        }
+        .voice {
+          flex-direction: row-reverse;
+          svg {
+            transform: rotate(180deg);
+            margin-left: 5px;
+            margin-right: 0;
+          }
         }
       }
     }
@@ -718,11 +833,19 @@ export default {
         .icon {
           margin: 0 5px;
         }
-        .input-text {
+        .input-text,
+        .record-btn {
           // width: 80%;
           flex: 1;
           border-radius: 5px;
           border: 1px solid rgba(233, 233, 233, 0.733)
+        }
+        .record-btn {
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          font-size: 18px;
+          user-select: none;
         }
       }
       .qqface-container{
@@ -771,6 +894,24 @@ export default {
       left: 100vw;
       z-index: 10;
       transition: all 0.3s linear;
+      user-select: none;
+    }
+    .record-vocie {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(95, 95, 95, 0.733) url('../assets/voicing.gif') no-repeat;
+      background-size: 100%;
+      background-position: center;
+      > div {
+        position: absolute;
+        bottom: 200px;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+      }
     }
   }
 </style>

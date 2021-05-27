@@ -28,10 +28,17 @@ const sendImg = (params, data) => request({
   data
 })
 
+const snedVoice = (params, data) => request({
+  url: '/app/voice/send',
+  params,
+  data
+})
+
 export default {
   getSessionlist,
   getMsgRecord,
   sendText,
   getMsgMedia,
-  sendImg
+  sendImg,
+  snedVoice
 }

@@ -4,7 +4,7 @@
     <div class="chat-list-wrap">
       <div class="item" v-for="(item, idx) in list" :key="idx" @click="goChat(item)">
         <div class="img">
-          <img :src="item.headImg" alt="">
+          <img :src="headImg" alt="">
         </div>
         <div class="main">
           <div class="title">{{item.userName}}.</div>
@@ -19,14 +19,18 @@
 </template>
 
 <script>
-import testApi from '@/api/test.js'
 
 export default {
   name: 'Home',
   data () {
     return {
-      list: [],
-      interVal: null
+      headImg: require('@/assets/headImg.jpg'),
+      list: [{
+        userName: 'CherryZ'
+      },
+      {
+        userName: 'ZBaLoR'
+      }]
     }
   },
   methods: {
@@ -36,30 +40,15 @@ export default {
         path: '/chat',
         query: {
           appId: row.appId,
-          openId: row.openId,
+          openId: 'asliduflasjdflj',
           start: row.newMessageTime,
-          headImg: row.headImg,
+          headImg: this.headImg,
           createTime: row.createTime,
           userName: row.userName
         }
       })
-    },
-    search () {
-      testApi.getSessionlist({
-        appId: 'wxd7f26a9406ecffda'
-      }).then(res => {
-        console.log(res)
-        this.list = res
-      })
     }
   },
-  created() {
-    this.search()
-    // this.interVal = setInterval(this.search, 2000)
-  }
-  // beforeDestroy() {
-  //   clearInterval(this.interVal)
-  // }
 };
 </script>
 
@@ -95,6 +84,7 @@ export default {
           height: 60px;
           margin-left: 10px;
           margin-right: 5px;
+          overflow: hidden;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
@@ -105,6 +95,8 @@ export default {
           .content {
             font-size: 12px;
             color: rgb(153, 153, 153);
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
         }
         .time {
