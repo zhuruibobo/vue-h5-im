@@ -1092,7 +1092,7 @@ export default {
         }
         .el-textarea {
           flex: 1;
-          height: 36px;
+          // height: 36px;
         }
         .use-voice{
           flex: 1;

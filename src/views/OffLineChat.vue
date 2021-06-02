@@ -12,6 +12,9 @@
           <div v-if="item.showTime" class="create-time"><span>{{new Date(item.createTime).toLocaleString()}}</span></div>
           <div :class="[item.isMe?'right':'left']">
             <img :src="item.isMe ? headImg : headImg " alt="" class="user-head">
+            <!-- <tringle></tringle> -->
+            <canvas width="20" height="30" :class="['canvas', 'canvas' + index]" style="transform: translate(-2px, 10px);"></canvas>
+            <!-- <div style="border: 8px solid transparent; borderLeft: 10px solid #9EEA6A; transform: translateY(10px);"></div> -->
             <span class="content" v-if="item.msgtype === 'text'" v-html="item.html"></span>
             <img class="image" :src="item.url" alt="" v-if="item.msgtype === 'image'" referrerPolicy="no-referrer" @click="viewImg(item.url)">
             <div class="voice-wrap" v-if="item.msgtype === 'voice' && !item.isMe" @click="playAmr(item, index)">
@@ -565,6 +568,18 @@ export default {
           this.resetBool()
           this.scrollToBottom()
           this.sendLoading = false
+          this.$nextTick(() => {
+            let canvas = document.querySelector('.canvas' + (this.recordList.length - 1))
+            let ctx = canvas.getContext('2d')
+            ctx.beginPath()
+            ctx.strokeStyle = '#9EEA6A'
+            ctx.fillStyle = '#9EEA6A'
+            ctx.moveTo(0, 30)
+            // ctx.lineTo(20, 40)
+            ctx.quadraticCurveTo(20, 20, 20, 0)
+            ctx.quadraticCurveTo(15, 10, 0, 10)
+            ctx.fill()
+          })
       }
     },
     resetBool() {
@@ -725,6 +740,9 @@ export default {
 @import '../css/qq.less';
 </style>
 <style lang="less" scoped>
+  .canvas {
+    width: 10px;
+  }
   .chat{
     width: 100%;
     height: 100%;
@@ -777,7 +795,7 @@ export default {
             line-height: 24px;
             color: #101010;
             padding: 10px;
-            border-radius: 0 8px 8px 8px;
+            border-radius: 8 8px 8px 8px;
           }
           .image{
             margin-left: 10px;
@@ -810,7 +828,7 @@ export default {
           flex-direction:row-reverse;
           align-items: flex-start;
           .content{
-            margin-right: 10px;
+            // margin-right: 10px;
             max-width:240px;
             min-width:20px;
             min-height:40px;
@@ -819,8 +837,9 @@ export default {
             line-height: 24px;
             color: #101010;
             padding: 10px;
-            border-radius: 8px 0 8px 8px;
+            border-radius: 8px 8px 8px 8px;
             text-align: justify;
+            word-break: break-all;
           }
           .image{
             margin-right: 10px;
@@ -836,7 +855,7 @@ export default {
             background-color: #9EEA6A;
             align-items: center;
             padding: 10px 15px;
-            border-radius: 8px 0 8px 8px;
+            border-radius: 8px 8px 8px 8px;
             img{
               width: 20px;
               height: 20px;
@@ -909,7 +928,7 @@ export default {
         }
         .el-textarea {
           flex: 1;
-          height: 36px;
+          // height: 36px;
         }
         .use-voice{
           flex: 1;
